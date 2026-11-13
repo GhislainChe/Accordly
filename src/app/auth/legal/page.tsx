@@ -1,0 +1,5 @@
+import { AccountShell } from "@/components/account-shell";
+import { AuthHeading, AuthMessage } from "@/components/auth/ui";
+export const dynamic = "force-dynamic";
+export default function LegalPage() { return <AccountShell><AuthHeading title="Legal information.">Approved documents are not available yet.</AuthHeading><AuthMessage>This status page is not a Terms of Service or Privacy Policy document. It does not collect legal agreement.</AuthMessage><div className="auth-information"><section id="terms"><h2>Terms of Service — pending</h2><p>BE WISE INNOVATION must supply and approve the actual Terms of Service before public registration can open.</p></section><section id="privacy"><h2>Privacy Policy — pending</h2><p>An approved Privacy Policy describing the actual service and its processing must be published before real users are invited to register.</p></section><p>Registration remains restricted to the fictional local demonstration. No legal text or legal enforceability is claimed by this page.</p></div></AccountShell>; }
+

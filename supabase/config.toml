@@ -1,0 +1,73 @@
+# Private domain schemas are intentionally absent from API schemas/search_path.
+# Distinct ID and ports avoid the existing, unrelated local Supabase project.
+project_id = "accordly-foundation"
+
+[api]
+enabled = true
+port = 55421
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+auto_expose_new_tables = false
+
+[db]
+port = 55422
+shadow_port = 55420
+major_version = 17
+
+[db.seed]
+enabled = false
+
+[db.pooler]
+enabled = false
+port = 55429
+
+[studio]
+enabled = false
+
+[local_smtp]
+enabled = true
+port = 55424
+
+[realtime]
+enabled = false
+
+[storage]
+enabled = false
+
+[analytics]
+enabled = false
+
+[edge_runtime]
+enabled = false
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = []
+enable_signup = true
+enable_anonymous_sign_ins = false
+minimum_password_length = 12
+password_requirements = "lower_upper_letters_digits_symbols"
+
+[auth.rate_limit]
+email_sent = 60
+sign_in_sign_ups = 30
+token_verifications = 30
+
+[auth.email]
+enabled = true
+double_confirm_changes = true
+enable_confirmations = true
+secure_password_change = true
+max_frequency = "60s"
+otp_expiry = 600
+otp_length = 6
+
+[auth.email.template.confirmation]
+subject = "Confirm your Accordly account"
+content_path = "./supabase/templates/confirmation.html"
+
+[auth.email.template.recovery]
+subject = "Recover your Accordly account"
+content_path = "./supabase/templates/recovery.html"

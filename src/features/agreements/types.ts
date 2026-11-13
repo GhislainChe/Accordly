@@ -1,0 +1,13 @@
+import type { z } from "zod";
+import type { draftSchema } from "./schemas";
+export type Draft = z.infer<typeof draftSchema>;
+export type Lifecycle = "preparing" | "awaiting_signatures" | "active";
+export type AgreementRow = { id: string; organization_id: string; title: string; lifecycle: Lifecycle; revision: string; updated_at: string };
+export type Organization = { id: string; name: string; kind: string; role: string; status: string };
+export type Workspace = { selected_organization_id?: string | null; organizations: Organization[]; agreements: AgreementRow[] };
+export type Party = { id: string; side: "provider" | "client"; legal_name: string; contact_email: string; representatives?: { id: string; display_name: string; expected_email: string; required: boolean }[] };
+export type Snapshot = Draft & { title: string; version_id: string; version_number: string; organization_id: string; agreement_id: string; parties: Party[]; consent_text: string; disclosure_version: string; schema_version: number; canonicalization_version: number };
+export type Signature = { slot_id: string; signed_at: string; digest: string; decision?: "approve" | "reject" };
+export type Slot = { slot_id: string; side: string; expected_email: string; proposal_id: string };
+export type AgreementView = AgreementRow & { effective_version_id: string | null; effective_version: { id: string; version_number: string; digest: string; snapshot: Snapshot } | null; draft: { id: string; revision: string; payload: Draft } | null; parties: Party[]; versions: { id: string; version_number: string; digest: string; snapshot: Snapshot }[]; permissions: { edit: boolean; issue: boolean }; representatives: { id: string; party_id: string; display_name: string; can_sign: boolean }[]; history: { id: string; event_type: string; occurred_at: string; sequence: string }[]; signatures: Signature[]; slots: Slot[] };
+export type SigningView = { agreement_id: string; proposal_id: string; version_id: string; canonical_text: string; digest: string; slot_id: string; consent_text: string; disclosure_version: string; lifecycle: Lifecycle; proposal_kind: "initial" | "amendment"; proposal_state: string; decisions: Signature[] };
